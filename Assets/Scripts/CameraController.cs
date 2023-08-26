@@ -1,18 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static CameraController instance { get; private set; }
+    
+    private void Awake()
     {
-        
+        instance = this;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
+    
+    [field:SerializeField] public Camera camera { get; private set; }
+    [field:SerializeField] public CinemachineVirtualCamera virtualCamera { get; private set; }
 }

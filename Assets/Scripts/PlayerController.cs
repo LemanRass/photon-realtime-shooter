@@ -6,10 +6,21 @@ public class PlayerController : MonoBehaviour, IPunObservable
     [SerializeField] private PhotonView _photonView;
     [SerializeField] private float _moveSpeed = 5.0f;
     [SerializeField] private float _lerpSpeed = 5.0f;
+    [SerializeField] private MeshRenderer[] _bodyMeshRenderers;
 
     
     private Vector3 _targetPosition;
     private Quaternion _targetRotation;
+
+    public void SetBodyColor(Color color)
+    {
+        foreach (MeshRenderer meshRenderer in _bodyMeshRenderers)
+        {
+            Material material = new Material(meshRenderer.sharedMaterial);
+            material.color = color;
+            meshRenderer.sharedMaterial = material;
+        }
+    }
     
     private void Update()
     {
@@ -18,6 +29,13 @@ public class PlayerController : MonoBehaviour, IPunObservable
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
             transform.Translate(new Vector3(horizontal, 0, vertical) * (_moveSpeed * Time.deltaTime));
+            
+            // Get camera view direction without vertical component
+            Vector3 cameraForward = CameraController.instance.camera.transform.forward;
+            cameraForward.y = 0;
+            cameraForward.Normalize();
+            
+            transform.rotation = Quaternion.LookRotation(cameraForward);
         }
     }
 

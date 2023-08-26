@@ -13,10 +13,8 @@ public class JoinedGameController : MonoBehaviour
         GameObject playerGameObject = PhotonNetwork.Instantiate("Prefabs/Players/CubicPlayerPrefab", 
             randomPosition, Quaternion.identity);
 
-        MeshRenderer playerMeshRenderer = playerGameObject.GetComponent<MeshRenderer>();
-        Material playerMaterial = new Material(playerMeshRenderer.sharedMaterial);
-        playerMaterial.color = Random.ColorHSV();
-        playerMeshRenderer.sharedMaterial = playerMaterial;
+        PlayerController playerController = playerGameObject.GetComponent<PlayerController>();
+        playerController.SetBodyColor(Random.ColorHSV());
         
         _virtualCamera.Follow = playerGameObject.transform;
     }
