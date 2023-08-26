@@ -144,3 +144,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _photonView: {fileID: 5848413380691593716}
   _moveSpeed: 5
+  _lerpSpeed: 5

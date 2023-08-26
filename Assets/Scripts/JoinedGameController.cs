@@ -1,8 +1,11 @@
+using Cinemachine;
 using Photon.Pun;
 using UnityEngine;
 
 public class JoinedGameController : MonoBehaviour
 {
+    [SerializeField] private CinemachineVirtualCamera _virtualCamera;
+    
     private void Start()
     {
         Vector3 randomPosition = GenerateRandomPosition();
@@ -14,6 +17,8 @@ public class JoinedGameController : MonoBehaviour
         Material playerMaterial = new Material(playerMeshRenderer.sharedMaterial);
         playerMaterial.color = Random.ColorHSV();
         playerMeshRenderer.sharedMaterial = playerMaterial;
+        
+        _virtualCamera.Follow = playerGameObject.transform;
     }
     
     private static Vector3 GenerateRandomPosition()
