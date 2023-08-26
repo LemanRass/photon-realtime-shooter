@@ -25,7 +25,8 @@ public class JoinedGameController : MonoBehaviour
         {
             Vector3 randomPosition = new Vector3(Random.Range(-5f, 5f), 0, Random.Range(-5f, 5f));
             
-            if (Physics.CheckBox(randomPosition, new Vector3(0.5f, 0.5f, 0.5f)))
+            if (Physics.CheckBox(randomPosition, new Vector3(0.5f, 0.5f, 0.5f), Quaternion.identity,
+                    LayerMask.NameToLayer("Player")))
                 continue;
             
             return randomPosition;

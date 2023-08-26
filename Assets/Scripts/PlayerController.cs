@@ -1,3 +1,4 @@
+using ExitGames.Client.Photon.StructWrapping;
 using Photon.Pun;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ public class PlayerController : MonoBehaviour, IPunObservable
     private Vector3 _targetPosition;
     private Quaternion _targetRotation;
 
+    
     public void SetBodyColor(Color color)
     {
         foreach (MeshRenderer meshRenderer in _bodyMeshRenderers)
@@ -26,6 +28,9 @@ public class PlayerController : MonoBehaviour, IPunObservable
     {
         if (_photonView.IsMine)
         {
+            if (transform.GetChild(0).gameObject.activeSelf)
+                transform.GetChild(0).gameObject.SetActive(false);
+            
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
             transform.Translate(new Vector3(horizontal, 0, vertical) * (_moveSpeed * Time.deltaTime));
@@ -36,6 +41,12 @@ public class PlayerController : MonoBehaviour, IPunObservable
             cameraForward.Normalize();
             
             transform.rotation = Quaternion.LookRotation(cameraForward);
+            
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                GunController.instance.Shoot();
+                Debug.Log("Shoot");
+            }
         }
     }
 
