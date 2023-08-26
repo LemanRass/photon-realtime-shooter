@@ -16,7 +16,20 @@ public class BulletController : MonoBehaviour, IPunObservable
 
     private void OnTriggerEnter(Collider other)
     {
-        transform.SetParent(other.transform);
+        if (_photonView.IsMine)
+        {
+            Transform parentTransform = other.transform;
+            Vector3 globalScale = transform.localScale;
+            
+            transform.SetParent(other.transform);
+            _rigidbody.isKinematic = true;
+            
+            
+            transform.localScale = new Vector3(globalScale.x / parentTransform.lossyScale.x,
+                globalScale.y / parentTransform.lossyScale.y,
+                globalScale.z / parentTransform.lossyScale.z);
+
+        }
     }
 
     private void LateUpdate()
