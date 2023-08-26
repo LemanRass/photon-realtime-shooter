@@ -10,7 +10,6 @@ public class GunController : MonoBehaviour
     }
     
     [SerializeField] private Transform _firePoint;
-    [SerializeField] private BulletController _bulletPrefab;
     [SerializeField] private float _bulletSpeed = 1000;
     
     public void Shoot()
